@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 22:39:35 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/04/07 13:18:40 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:08:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ bool	is_operator(const char c)
 	);
 }
 
-void	operator_apply(std::stack<std::string>& stack, char op)
+void	operator_apply(std::stack<int>& stack, char op)
 {
 	int		result;
 	int		lhs;
 	int		rhs;
 
-	rhs = std::atoi(stack.top().c_str());
+	rhs = stack.top();
 	stack.pop();
-	lhs = std::atoi(stack.top().c_str());
+	lhs = stack.top();
 	stack.pop();
 	if ('+' == op)
 		result = lhs + rhs;
@@ -41,16 +41,16 @@ void	operator_apply(std::stack<std::string>& stack, char op)
 		result = lhs * rhs;
 	if ('/' == op)
 		result = lhs / rhs;
-	stack.push(std::to_string(result));
+	stack.push(result);
 }
 
 int main( int argc, const char* argv[])
 {
 	if (2 == argc)
 	{
-		std::stack<std::string>	stack;
-		int						i;
-		int						operands;
+		std::stack<int>	stack;
+		int				i;
+		int				operands;
 
 		operands = 0;
 		i = 0;
@@ -58,18 +58,14 @@ int main( int argc, const char* argv[])
 		{
 			if (std::isdigit(argv[1][i]))
 			{
-				stack.push(std::string(1, argv[1][i]));
+				stack.push(std::atoi(argv[1] + i));
 				operands += 1;
 			}
 			else if (is_operator(argv[1][i]))
 			{
 				if (operands < 2)
 				{
-					std::cout
-					<< BOLDRED
-					<< "Error: wrong number of arguments for operator"
-					<< RESET
-					<< std::endl;
+					std::cout << BOLDRED << "Error: wrong number of arguments for operator" << RESET << std::endl;
 					exit(1);
 				}
 				operands -= 1;
@@ -84,15 +80,7 @@ int main( int argc, const char* argv[])
 		}
 		if (stack.size() != 1)
 		{
-			std::cout
-			<< BOLDRED
-			<< "Error: invalid inverted Polish mathematical expression"
-			<< RESET
-			<< std::endl;
-			std::cout << "size: " << stack.size() << std::endl;
-			std::cout << "top: " << stack.top() << std::endl;
-			stack.pop();
-			std::cout << "second: " << stack.top() << std::endl;
+			std::cout << BOLDRED << "Error: invalid inverted Polish mathematical expression" << RESET << std::endl;
 			exit(1);
 		}
 		std::cout << BOLDGREEN << stack.top() << RESET << std::endl;
