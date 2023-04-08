@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Awesome.cpp                                        :+:      :+:    :+:   */
+/*   pmerge.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/09 17:53:12 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/10/14 13:08:01 by mmarinel         ###   ########.fr       */
+/*   Created: 2023/04/07 19:16:42 by mmarinel          #+#    #+#             */
+/*   Updated: 2023/04/07 19:18:11 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "Awesome.hpp"
+#ifndef PMERGE_HPP
+# define PMERGE_HPP
 
-//*...... Constructor
-Awesome::Awesome( void ) : __n(42) {}
-Awesome::Awesome( int el ) : __n(el) {}
+# include <vector>
+# include <deque>
 
-//*........ Getters and Setters
-int	Awesome::get( void ) const {
-	return (this->__n);
-}
+# include <iostream>
+# include <cstdlib>
+# include <string>
+# include <unistd.h>
 
-//*.......... Operators
-std::ostream&	operator<<( std::ostream& o, Awesome const & rhs ) {
-	o << rhs.get();
+# include "../colors.hpp"
 
-	return (o);
-}
+# define THRESHOLD 16
+
+//*		function prototypes
+void	mergeInsert_vector(const std::string& args);
+void	printVector(const std::vector<int>& vec);
+
+#endif
