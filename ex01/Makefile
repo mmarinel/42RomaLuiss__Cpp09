@@ -28,7 +28,7 @@ BOLDMAGENTA	:= "\033[1m\033[35m"
 BOLDCYAN	:= "\033[1m\033[36m"
 BOLDWHITE	:= "\033[1m\033[37m"
 
-CC:= @clang++
+CC:= @g++
 CFLAGS:= -std=c++98 -Wall -Werror -Wextra
 
 NAME := RPN

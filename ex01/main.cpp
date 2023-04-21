@@ -15,6 +15,7 @@
 # include <stack>
 # include <cctype>
 # include <iostream>
+# include <cstdlib>
 
 bool	is_operator(const char c)
 {
