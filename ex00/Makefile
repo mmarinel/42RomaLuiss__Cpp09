@@ -6,7 +6,7 @@
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/16 17:34:54 by earendil          #+#    #+#              #
-#    Updated: 2023/03/31 12:06:05 by mmarinel         ###   ########.fr        #
+#    Updated: 2023/04/21 18:41:17 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ BOLDMAGENTA	:= "\033[1m\033[35m"
 BOLDCYAN	:= "\033[1m\033[36m"
 BOLDWHITE	:= "\033[1m\033[37m"
 
-CC:= @clang++
+CC:= @g++
 CFLAGS:= -std=c++98 -Wall -Werror -Wextra
 
 NAME := btc
