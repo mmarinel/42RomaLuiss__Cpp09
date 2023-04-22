@@ -27,7 +27,7 @@ int	main(int argc, char* argv[])
 		// for (std::list<t_db_entry>::iterator it = db.begin(); it != db.end(); it++)
 		// 	std::cout << std::setprecision(max_precision) << (*it).intDate << ", " << (*it).exch_rate << std::endl;
 		// std::cout << std::endl;
-		read_input_and_print(argv[1])
+		read_input_and_print(argv[1]);
 	}
 	else
 		std::cout << "Error: " << RED << "wrong number of arguments " << RESET << "(1 needed)" << std::endl;

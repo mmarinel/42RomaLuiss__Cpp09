@@ -14,9 +14,14 @@
 
 bool	parse_val_part(std::string& val_part)
 {
+
+	std::string::iterator	spacesBegin = std::remove(val_part.begin(), val_part.end(), ' ');
+	val_part.erase(spacesBegin, val_part.end());
+
 	return (
-		val_part.find_first_not_of("0123456789") == std::string::n_pos
-		&& std::atoi(val_part.c_str()) < 1000
+		val_part.find_first_not_of("0123456789.") == std::string::npos &&
+		std::find_if(val_part.begin(), val_part.end(), ::isdigit) != val_part.end() &&
+		std::atof(val_part.c_str()) < 1000.0f
 	);
 }
 
@@ -36,20 +41,23 @@ bool	parse_date_part(std::string& date_part)
 	std::getline(stream, year.as_str, '-');
 	std::getline(stream, month.as_str, '-');
 	std::getline(stream, day.as_str, '-');
-	year.as_int = std::atoi(year.as_str);
-	month.as_int = std::atoi(month.as_str);
-	day.as_int = std::atoi(day.as_str);
+	year.as_int = std::atoi(year.as_str.c_str());
+	month.as_int = std::atoi(month.as_str.c_str());
+	day.as_int = std::atoi(day.as_str.c_str());
 	if (
-		year < 2009 ||
-		(month < 1 || month > 12) ||
-		(day < 1 || day < 31)
+		year.as_int < 2009 ||
+		(month.as_int < 1 || month.as_int > 12) ||
+		(day.as_int < 1 || day.as_int > 31)
 	)
+	{
+		std::cout << "date part parse failed\n";
 		return (false);
+	}
 	else
 		return (true);
 }
 
-bool	parse_line(const std::string line, std::string& buffer[3])
+bool	parse_line(const std::string line, std::string *buffer)
 {
 	std::stringstream	stream(line);
 
@@ -74,20 +82,21 @@ void	read_input_and_print(const char* path)
 	{
 		std::string	buffer[3];
 
-		std::getline(csv, buffer[0]);
+		std::getline(input, buffer[0]);
 		buffer[0].erase(buffer[0].begin(), buffer[0].end());
 		while (input.good())
 		{
 			std::getline(input, buffer[0]);
 			if (parse_line(buffer[0], buffer))
 			{
-				
+				std::cout << "buffer[1]: " << buffer[1] << "buffer[2]: " << buffer[2] << std::endl;  
 				//TODO converti in int la data e cerca la lower one nel db
 			}
 			else
 				std::cout << "Error: " << RED << "wrong format for line" << RESET << std::endl;
 			buffer[0].erase(buffer[0].begin(), buffer[0].end());
 			buffer[1].erase(buffer[1].begin(), buffer[1].end());
+			buffer[2].erase(buffer[2].begin(), buffer[2].end());
 		}
 		if (input.bad())
 		{

@@ -15,6 +15,7 @@
 
 //*		INCLUDES
 #include <list>
+#include <algorithm>
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
@@ -30,7 +31,7 @@ typedef struct s_db_entry
 	unsigned long long	intDate;
 	float				exch_rate;
 
-	bool				operator<(const struct s_db_entry other)
+	bool				operator<(const struct s_db_entry other) const
 	{
 		return (this->intDate < other.intDate);
 	}
@@ -42,5 +43,6 @@ extern const float 					max_precision;
 
 //*		Function Prototypes
 void	load_db( void );
+void	read_input_and_print(const char* path);
 
 #endif
