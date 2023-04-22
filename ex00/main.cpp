@@ -6,17 +6,50 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 16:22:41 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/04/21 19:03:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/04/22 12:33:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <map>
+#include <list>
 #include <cstdlib>
 #include <fstream>
+#include <sstream>
 #include <iostream>
+#include <iomanip>
+#include <limits>
 #include "../colors.hpp"
 
-std::map<std::string, float>	db;
+std::list<t_db_entry>			db;
+const float 					max_precision = std::numeric_limits<float>::digits10 + 1;
+
+typedef struct s_db_entry
+{
+	unsigned long long	intDate;
+	float				exch_rate;
+
+	bool				operator<(const struct s_db_entry other)
+	{
+		return (this->intDate < other.intDate);
+	}
+}	t_db_entry;
+
+unsigned long long	date_as_integral(const std::string date)
+{
+	std::stringstream	stream(date);
+	std::string			as_string;
+	std::string			year;
+	std::string			month;
+	std::string			day;
+
+	std::getline(stream, year, '-');
+	std::getline(stream, month, '-');
+	std::getline(stream, day, '-');
+
+	as_string = year + month + day;
+	// std::cout << as_string << std::endl;
+
+	return (std::atol(as_string.c_str()));
+}
 
 bool	load_db( void )
 {
@@ -37,7 +70,12 @@ bool	load_db( void )
 		{
 			std::getline(csv, buffer[0], ',');
 			std::getline(csv, buffer[1]);
-			db.insert(std::pair<std::string, float>(buffer[0], std::atof(buffer[1].c_str())));
+			// std::cout << date_as_integral(buffer[0]) << std::endl;
+			db.push_back(
+				(t_db_entry){
+					date_as_integral(buffer[0]),
+					(float)std::atof(buffer[1].c_str())
+					});
 			buffer[0].erase(buffer[0].begin(), buffer[0].end());
 			buffer[1].erase(buffer[1].begin(), buffer[1].end());
 		}
@@ -56,8 +94,10 @@ int	main(int argc, char* argv[])
 {(void)argc; (void)argv;
 
 	load_db();
-	for (std::map<std::string, float>::iterator it = db.begin(); it != db.end(); it++)
-		std::cout << (*it).first << ", " << (*it).second << std::endl;
+	// db.sort(db_entry_less_than);
+	db.sort();
+	for (std::list<t_db_entry>::iterator it = db.begin(); it != db.end(); it++)
+		std::cout << std::setprecision(max_precision) << (*it).intDate << ", " << (*it).exch_rate << std::endl;
 	std::cout << std::endl;
 
 	return (0);
