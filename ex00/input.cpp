@@ -6,7 +6,7 @@
 /*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 16:14:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/04/23 17:31:26 by earendil         ###   ########.fr       */
+/*   Updated: 2023/04/23 17:48:11 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,25 @@ void	read_input_and_print(const char* path)
 			if (parse_line(buffer[0], buffer))
 			{
 				unsigned long long	dateAsInt = date_as_integral(buffer[1]);
-				std::list<t_db_entry>::iterator back;
+				std::list<t_db_entry>::iterator	it;
+				std::list<t_db_entry>::iterator	back;
 
-				back = db.begin();
-				for (std::list<t_db_entry>::iterator it = db.begin(); it != db.end(); it++)
+				back = db.end();
+				//TODO 1. se sei l'ultimo, jumpi
+				for (it = db.begin(); it != db.end(); it++)
 				{
 					if ( (*it).intDate > dateAsInt )
 					{
-						std::cout << buffer[1] << " ==> " << buffer[2] << " = " << (*back).exch_rate * std::atof(buffer[2].c_str()) << std::endl;
+						if (back == db.end())
+							std::cout << "Error: " << RED << "too lower a date" << RESET << std::endl;
+						else
+							std::cout << buffer[1] << " ==> " << buffer[2] << " = " << (*back).exch_rate * std::atof(buffer[2].c_str()) << std::endl;
 						break;
 					}
 					back = it;
 				}
+				if (it == db.end())
+					std::cout << buffer[1] << " ==> " << buffer[2] << " = " << (*back).exch_rate * std::atof(buffer[2].c_str()) << std::endl;
 				//TODO converti in int la data e cerca la lower one nel db
 			}
 			else
