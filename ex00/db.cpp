@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   db.cpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 15:58:25 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/04/22 16:12:05 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/04/23 17:14:19 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "btc.hpp"
-
-static unsigned long long	date_as_integral(const std::string date);
-//*		end of static declarations
 
 void	load_db( void )
 {
@@ -48,21 +45,4 @@ void	load_db( void )
 			exit(1);
 		}
 	}
-}
-
-unsigned long long	date_as_integral(const std::string date)
-{
-	std::stringstream	stream(date);
-	std::string			as_string;
-	std::string			year;
-	std::string			month;
-	std::string			day;
-
-	std::getline(stream, year, '-');
-	std::getline(stream, month, '-');
-	std::getline(stream, day, '-');
-
-	as_string = year + month + day;
-
-	return (std::atol(as_string.c_str()));
 }

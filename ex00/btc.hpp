@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   btc.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 15:58:57 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/04/22 16:13:40 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/04/23 17:14:11 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ extern std::list<t_db_entry>		db;
 extern const float 					max_precision;
 
 //*		Function Prototypes
-void	load_db( void );
-void	read_input_and_print(const char* path);
+void				load_db( void );
+void				read_input_and_print(const char* path);
+unsigned long long	date_as_integral(const std::string date);
 
 #endif

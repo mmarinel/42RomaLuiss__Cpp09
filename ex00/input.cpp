@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 16:14:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/04/22 17:15:04 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/04/23 17:31:26 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	parse_date_part(std::string& date_part)
 
 	std::getline(stream, year.as_str, '-');
 	std::getline(stream, month.as_str, '-');
-	std::getline(stream, day.as_str, '-');
+	std::getline(stream, day.as_str, '-');//* inutile specificare '-'
 	year.as_int = std::atoi(year.as_str.c_str());
 	month.as_int = std::atoi(month.as_str.c_str());
 	day.as_int = std::atoi(day.as_str.c_str());
@@ -50,7 +50,7 @@ bool	parse_date_part(std::string& date_part)
 		(day.as_int < 1 || day.as_int > 31)
 	)
 	{
-		std::cout << "date part parse failed\n";
+		// std::cout << "date part parse failed\n";
 		return (false);
 	}
 	else
@@ -89,7 +89,19 @@ void	read_input_and_print(const char* path)
 			std::getline(input, buffer[0]);
 			if (parse_line(buffer[0], buffer))
 			{
-				std::cout << "buffer[1]: " << buffer[1] << "buffer[2]: " << buffer[2] << std::endl;  
+				unsigned long long	dateAsInt = date_as_integral(buffer[1]);
+				std::list<t_db_entry>::iterator back;
+
+				back = db.begin();
+				for (std::list<t_db_entry>::iterator it = db.begin(); it != db.end(); it++)
+				{
+					if ( (*it).intDate > dateAsInt )
+					{
+						std::cout << buffer[1] << " ==> " << buffer[2] << " = " << (*back).exch_rate * std::atof(buffer[2].c_str()) << std::endl;
+						break;
+					}
+					back = it;
+				}
 				//TODO converti in int la data e cerca la lower one nel db
 			}
 			else
