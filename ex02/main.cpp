@@ -13,7 +13,7 @@
 #include "pmerge.hpp"
 
 static void	mergeInsert_vector(const std::string& args);
-// static void	mergeInsert_deque(const std::string& args);
+static void	vector_insertion_sort(iterator begin, iterator end);
 //*		end of static declarations
 
 int main(int argc, char const *argv[])
@@ -42,4 +42,12 @@ void	printVector(const std::vector<int>& vec)
 	for (std::vector<int>::const_iterator it = vec.cbegin(); it < vec.cend(); it++)
 		std::cout << *it << " ";
 	std::cout << std::endl;
+}
+
+static void	vector_insertion_sort(iterator begin, iterator end)
+{
+	for (iterator selected = begin; selected != end; selected++)
+		for (iterator it = selected + 1; it != end; it++)
+			if (*it < *selected)
+				ft_swap(*it, *selected);
 }

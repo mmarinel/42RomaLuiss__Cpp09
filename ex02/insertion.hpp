@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pmerge.hpp                                         :+:      :+:    :+:   */
+/*   insertion.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/07 19:16:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/04/07 19:18:11 by mmarinel         ###   ########.fr       */
+/*   Created: 2023/05/10 19:37:05 by mmarinel          #+#    #+#             */
+/*   Updated: 2023/05/11 19:18:40 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PMERGE_HPP
-# define PMERGE_HPP
+#ifndef INSERTION_HPP
+# define INSERTION_HPP
 
 # include <vector>
-# include <deque>
-
-# include <iostream>
-# include <cstdlib>
-# include <string>
-# include <unistd.h>
-
-# include "../colors.hpp"
-
-# define THRESHOLD 16
 
 //*     Typedefs
-typedef std::vector::iterator   iterator;
-
-//*		Function Prototypes
-void	mergeInsert_vector(const std::string& args);
-void	printVector(const std::vector<int>& vec);
+// typedef typename std::vector<int>::reverse_iterator   iterator;
+typedef typename std::vector<int>::iterator   iterator;
 
 #endif
