@@ -1,14 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mis_pair.cpp                                       :+:      :+:    :+:   */
+/*   mis_pair.tpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:49:06 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/12 19:58:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:18:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef MIS_PAIR_TPP
+# define MIS_PAIR_TPP
 
 #include "mis_pair.hpp"
 
@@ -27,7 +30,10 @@ bool    mis_pair<T>::operator>(const mis_pair<T>& other)
 template <typename T>
 bool    mis_pair<T>::operator==(const mis_pair<T>& other)
 {
-    return (this->bigger == other.bigger);
+    return (
+        this->bigger == other.bigger &&
+        this->smaller == other.smaller
+    );
 }
 
 
@@ -59,6 +65,8 @@ mis_pair<T>& mis_pair<T>::operator=(const mis_pair<T>& copy)
     this->smaller = copy.smaller;
     this->bigger = copy.bigger;
     this->last_not_used = copy.last_not_used;
+
+    return (*this);
 }
 
 template  <typename T>
@@ -66,3 +74,5 @@ mis_pair<T>::~mis_pair( void )
 {
     //* intentionally left blank
 }
+
+#endif

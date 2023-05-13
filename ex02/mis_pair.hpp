@@ -6,12 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:39:57 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/12 19:57:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:12:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MIS_PAIR_HPP
 # define MIS_PAIR_HPP
+
+# include <cstdlib>
 
 template <typename T>
 class mis_pair
@@ -31,5 +33,7 @@ public:
     mis_pair&   operator=(const mis_pair& copy);
                 ~mis_pair();
 };
+
+# include "mis_pair.tpp"
 
 #endif

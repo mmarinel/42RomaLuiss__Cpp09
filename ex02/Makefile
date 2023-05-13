@@ -6,7 +6,7 @@
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/16 17:34:54 by earendil          #+#    #+#              #
-#    Updated: 2023/04/07 15:15:01 by mmarinel         ###   ########.fr        #
+#    Updated: 2023/05/13 13:15:47 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,13 @@ BOLDMAGENTA	:= "\033[1m\033[35m"
 BOLDCYAN	:= "\033[1m\033[36m"
 BOLDWHITE	:= "\033[1m\033[37m"
 
-CC:= @clang++
+CC:= g++
 CFLAGS:= -std=c++98 -Wall -Werror -Wextra
 
 NAME := PmergeMe
 OBJS_DIR:= bin
 OBJS:= $(addprefix $(OBJS_DIR)/, $(shell find . -name "*.cpp" -print | sed 's/\.cpp/\.o/g' | sed 's/\.\///'))
-INCLUDES:= $(shell find . -name "*.hpp" -print)
+INCLUDES:= $(shell find . -name "*.[t,h]pp" -print)
 
 RMF:= @/bin/rm -rf
 MKD:= @mkdir -p
