@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:49:06 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/13 13:18:47 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:02:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 #include "mis_pair.hpp"
 
 template <typename T>
-bool    mis_pair<T>::operator<(const mis_pair<T>& other)
+bool    mis_pair<T>::operator<(const mis_pair<T>& other) const
 {
     return (this->bigger < other.bigger);
 }
 
 template <typename T>
-bool    mis_pair<T>::operator>(const mis_pair<T>& other)
+bool    mis_pair<T>::operator>(const mis_pair<T>& other) const
 {
     return (this->bigger > other.bigger);
 }
 
 template <typename T>
-bool    mis_pair<T>::operator==(const mis_pair<T>& other)
+bool    mis_pair<T>::operator==(const mis_pair<T>& other) const
 {
     return (
         this->bigger == other.bigger &&
@@ -73,6 +73,18 @@ template  <typename T>
 mis_pair<T>::~mis_pair( void )
 {
     //* intentionally left blank
+}
+
+template  <typename T>
+const T&	mis_pair<T>::getSmaller( void ) const
+{
+	return (this->smaller);
+}
+
+template  <typename T>
+const T&	mis_pair<T>::getBigger( void ) const
+{
+	return (this->bigger);
 }
 
 #endif

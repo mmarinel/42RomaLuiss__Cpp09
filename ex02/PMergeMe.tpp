@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 19:01:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/13 13:25:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:08:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ PMergeMe<T>::PMergeMe( size_t argc, char const *argv[] )
 {
     size_t  i;
 
-    i = 0;
+    i = 1;
     while (i < argc)
     {
-        if (false == isVaildNumberString(argv[i]))
+        if (
+			false == isVaildNumberString(argv[i]) ||
+			( i < argc - 1 && false == isVaildNumberString(argv[i + 1]) )
+			)
             throw (PMergeMe<T>::InvalidSequenceException());
         else
         {
@@ -36,6 +39,16 @@ PMergeMe<T>::PMergeMe( size_t argc, char const *argv[] )
     }
 }
 
+template <typename T>
+void    PMergeMe<T>::debug( void )
+{
+    size_t  j;
+
+    for (j = 0; j < this->vec_pairs.size(); j++)
+    {
+        std::cout << this->vec_pairs[j] << std::endl;
+    }
+}
 
 template <typename T>
 const char* PMergeMe<T>::InvalidSequenceException::what( void ) const throw()
@@ -78,7 +91,7 @@ bool    PMergeMe<T>::isVaildNumberString( const char *numberString )
     i = 0;
     while (numberString[i])
     {
-        if (false == std::isdigit(numberString[i]))
+        if (0 == std::isdigit(numberString[i]))
             return (false);
         i++;
     }

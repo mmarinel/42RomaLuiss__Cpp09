@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:49:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/13 13:16:34 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:19:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <list>
 # include <cctype>
 # include <cstdlib>
+# include <iostream>
 
 # include "mis_pair.hpp"
 
@@ -25,7 +26,7 @@ class PMergeMe
 {
 private:
 	std::vector< mis_pair<T> >	vec_pairs;
-	std::list< mis_pair<T> >		list_pairs;
+	std::list< mis_pair<T> >	list_pairs;
 	std::vector<T>				ordered_vec;
 	std::list<T>				ordered_list;
 private:
@@ -41,6 +42,8 @@ public:
             				PMergeMe( const PMergeMe& copy );
     PMergeMe<T>&    		operator=( const PMergeMe& copy );
             				~PMergeMe();
+
+	void					debug ( void );
 
 	class					InvalidSequenceException : public std::exception {
 		public:
