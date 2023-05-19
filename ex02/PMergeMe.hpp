@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:49:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/19 15:12:54 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/19 19:19:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <cctype>
 # include <cstdlib>
 # include <iostream>
+# include <math.h>
 
 # include "mis_pair.hpp"
 
@@ -52,7 +53,7 @@ public:
 private:
 	void	_order_vec_pairs( void );
 	// void	_group_vec_pairs( void );
-	// void	_merge_vec_pairs( void );
+	void	_merge_vec_pairs( void );
 	void	_order_vec_pairs_rec( int start, int end );
 };
 
