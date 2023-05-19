@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:39:57 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/13 16:59:56 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:26:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@ private:
     T		        bigger;
     bool	        last_not_used;
 public:
+	void			sortPair( void );
+
     bool            operator<(const mis_pair& other) const;
+    bool            operator<=(const mis_pair& other) const;
     bool            operator>(const mis_pair& other) const;
+    bool            operator>=(const mis_pair& other) const;
     bool            operator==(const mis_pair& other) const;
 
                     mis_pair(T smaller, T bigger, bool last_not_used);
