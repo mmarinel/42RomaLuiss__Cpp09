@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 04:53:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/13 16:17:06 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:43:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 int main(int argc, char const *argv[])
 {
-	PMergeMe<int>	pMergeMe(argc, argv);
-	
-	pMergeMe.debug();
+	try
+	{
+		PMergeMe<int>	pMergeMe(argc, argv);
+		
+		pMergeMe.debug();
+	}
+	catch (const PMergeMe<int>:: InvalidSequenceException& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 	return 0;
 }

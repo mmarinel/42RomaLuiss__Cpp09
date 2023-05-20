@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 19:01:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/20 11:29:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:49:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,37 +20,31 @@
 template <typename T>
 PMergeMe<T>::PMergeMe( size_t argc, char const *argv[] )
 {
-    size_t  i;
+	size_t  i;
 
-    i = 1;
-    while (i < argc)
-    {
-        if (
+	this->vec_pairs.reserve(argc / 2);
+	this->ordered_vec.reserve(argc);
+	i = 1;
+	while (i < argc)
+	{
+		if (
 			false == isVaildNumberString(argv[i]) ||
 			( i < argc - 1 && false == isVaildNumberString(argv[i + 1]) )
 			)
-            throw (PMergeMe<T>::InvalidSequenceException());
-        else
-        {
-            if (i < argc - 1)
-                this->vec_pairs.push_back(
-                    mis_pair<T>(
-                        std::atoi(argv[i]), std::atoi(argv[i + 1]), false)
-						);
-            else
-                this->vec_pairs.push_back(
-					mis_pair<T>(std::atoi(argv[i]), 0, true)
-					);
-        }
-        i += 2;
-    }
+			throw (PMergeMe<T>::InvalidSequenceException());
+		else
+		{
+			_add_vec_pair(i, argc, argv);
+			_add_deq_pair(i, argc, argv);
+		}
+		i += 2;
+	}
 }
 
 template <typename T>
 void	PMergeMe<T>::sortVec ( void )
 {
 	_order_vec_pairs();
-	// _group_vec_pairs();
 	_merge_vec_pairs();
 }
 
@@ -141,6 +135,35 @@ void	PMergeMe<T>:: _bs_insert_vec( T el )
 
 
 //*		UTILITIES
+
+template <typename T>
+void	PMergeMe<T>:: _add_vec_pair( size_t pos, size_t argc, char const *argv[] )
+{
+	if (pos < argc - 1)
+	this->vec_pairs.push_back(
+		mis_pair<T>(
+			std::atoi( argv[pos]), std::atoi(argv[pos + 1]), false )
+		);
+	else
+		this->vec_pairs.push_back(
+			mis_pair<T>( std::atoi(argv[pos]), 0, true )
+		);
+}
+
+template <typename T>
+void	PMergeMe<T>:: _add_deq_pair( size_t pos, size_t argc, char const *argv[] )
+{
+	if (pos < argc - 1)
+	this->deque_pairs.push_back(
+		mis_pair<T>(
+			std::atoi( argv[pos]), std::atoi(argv[pos + 1]), false )
+		);
+	else
+		this->deque_pairs.push_back(
+			mis_pair<T>( std::atoi(argv[pos]), 0, true )
+		);
+}
+
 template <typename T>
 void    PMergeMe<T>::debug( void )
 {
@@ -160,7 +183,7 @@ void    PMergeMe<T>::debug( void )
 template <typename T>
 const char* PMergeMe<T>::InvalidSequenceException::what( void ) const throw()
 {
-    return ("invalid input sequence");
+    return ("err: invalid input sequence");
 }
 
 template <typename T>
