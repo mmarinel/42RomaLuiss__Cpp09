@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 19:01:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/20 12:49:50 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/20 15:33:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,140 +44,97 @@ PMergeMe<T>::PMergeMe( size_t argc, char const *argv[] )
 template <typename T>
 void	PMergeMe<T>::sortVec ( void )
 {
-	_order_vec_pairs();
-	_merge_vec_pairs();
+	_order_pairs(this->vec_pairs);
+	_merge_pairs(this->vec_pairs, this->ordered_vec);
 }
 
 template <typename T>
-void	PMergeMe<T>::_order_vec_pairs( void )
+void	PMergeMe<T>::sortDeq ( void )
+{
+	_order_pairs(this->deque_pairs);
+	_merge_pairs(this->deque_pairs, this->ordered_deque);
+}
+
+template <typename T>
+template <typename C>
+void	PMergeMe<T>::_order_pairs( C& collection )
 {
 	size_t			i;
 	int				j;
 	mis_pair<T>		backup;
 
-	for (i = 0; i < this->vec_pairs.size(); i++)
-		this->vec_pairs[i].sortPair();
-	for (i = 0; i < this->vec_pairs.size(); i++)
+	for (i = 0; i < collection.size(); i++)
+		collection[i].sortPair();
+	for (i = 0; i < collection.size(); i++)
 	{
-		backup = vec_pairs[i];
+		backup = collection[i];
 		j = i - 1;
 		for (; j >= 0; j--)
 		{
-			if (vec_pairs[j] > backup)
-				vec_pairs[j + 1] = vec_pairs[j];
+			if (collection[j] > backup)
+				collection[j + 1] = collection[j];
 			else
 				break ;
 		}
-		vec_pairs[j + 1] = backup;
+		collection[j + 1] = backup;
 	}
 
 }
 
 template <typename T>
-void	PMergeMe<T>::_merge_vec_pairs( void )
+template <typename CPair, typename C>
+void	PMergeMe<T>::_merge_pairs( CPair& cpairs, C& collection )
 {
 	size_t	offset;
 	size_t	group_size;
 
-	this->ordered_vec.push_back(this->vec_pairs[0].getSmaller());
-	for (int i = 0; i < (int) this->vec_pairs.size(); i++)
-		if (false == this->vec_pairs[i].isUnpaired())
-			this->ordered_vec.push_back(this->vec_pairs[i].getBigger());
-	std::cout
-		<< "..........................................................."
-		<< std::endl;
+	collection.push_back(cpairs[0].getSmaller());
+	for (int i = 0; i < (int) cpairs.size(); i++)
+		if (false == cpairs[i].isUnpaired())
+			collection.push_back(cpairs[i].getBigger());
 	offset = 1;
 	group_size = 2;
 	for (int i = 1; ; i++)
 	{
-		if (offset > this->vec_pairs.size() - 1)
+		if (offset > cpairs.size() - 1)
 			break ;
 		for (
-			int j = offset + group_size - 1 > this->vec_pairs.size() - 1
-				? this->vec_pairs.size() - 1
+			int j = offset + group_size - 1 > cpairs.size() - 1
+				? cpairs.size() - 1
 				: offset + group_size - 1;
 			j >= (int) offset;
 			j --)
-			_bs_insert_vec(this->vec_pairs[j].getSmaller());// std::cout << j << " "; std::cout << std::endl;
+			_bs_insert(collection, cpairs[j].getSmaller());
 		offset = offset + group_size;
 		group_size = pow(2, i + 1) - group_size;
 	}
-	std::cout << "\n";
-	std::cout
-		<< "..........................................................."
-		<< std::endl;
-}
-
-template <typename T>
-void	PMergeMe<T>:: _bs_insert_vec( T el )
-{
-	int	middle;
-	int	vec_start, vec_end;
-
-	vec_start = 0;
-	vec_end = this->ordered_vec.size() - 1;
-	while (vec_start <= vec_end)
-	{
-		middle = std::floor((vec_end + vec_start) / 2.0f);
-
-		if (el > this->ordered_vec[middle])
-			vec_start = middle + 1;
-		else
-			vec_end = middle - 1;		
-	}
-	if (vec_end != middle)
-		this->ordered_vec.insert(this->ordered_vec.begin() + middle, el);//before pos;
-	else
-		this->ordered_vec.insert(this->ordered_vec.begin() + middle + 1, el);//after pos;
 }
 
 //************************************************************************** //
 
 
 //*		UTILITIES
-
-template <typename T>
-void	PMergeMe<T>:: _add_vec_pair( size_t pos, size_t argc, char const *argv[] )
-{
-	if (pos < argc - 1)
-	this->vec_pairs.push_back(
-		mis_pair<T>(
-			std::atoi( argv[pos]), std::atoi(argv[pos + 1]), false )
-		);
-	else
-		this->vec_pairs.push_back(
-			mis_pair<T>( std::atoi(argv[pos]), 0, true )
-		);
-}
-
-template <typename T>
-void	PMergeMe<T>:: _add_deq_pair( size_t pos, size_t argc, char const *argv[] )
-{
-	if (pos < argc - 1)
-	this->deque_pairs.push_back(
-		mis_pair<T>(
-			std::atoi( argv[pos]), std::atoi(argv[pos + 1]), false )
-		);
-	else
-		this->deque_pairs.push_back(
-			mis_pair<T>( std::atoi(argv[pos]), 0, true )
-		);
-}
-
 template <typename T>
 void    PMergeMe<T>::debug( void )
 {
     size_t  j;
 
 	sortVec();
+	sortDeq();
+
+	std::cout << "Ad std::vector" << std::endl;
 	for (j = 0; j < this->ordered_vec.size(); j++)
 	{
 		std::cout << this->ordered_vec[j] << std::endl;
 	}
-    // for (j = 0; j < this->vec_pairs.size(); j++)
-    // {
-    //     std::cout << this->vec_pairs[j] << std::endl;
-    // }
+	std::cout << std::endl << std::endl;
+
+	std::cout << "Ad std::deque" << std::endl;
+	for (j = 0; j < this->ordered_deque.size(); j++)
+	{
+		std::cout << this->ordered_deque[j] << std::endl;
+	}
+	std::cout << std::endl << std::endl;
 }
 
 template <typename T>

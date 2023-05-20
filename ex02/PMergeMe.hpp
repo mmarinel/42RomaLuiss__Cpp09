@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:49:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/20 12:52:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/20 15:31:10 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,12 @@ public:
 			virtual const char* what() const throw();
 	};
 private:
-	void					_order_vec_pairs( void );
-	void					_merge_vec_pairs( void );
-	void					_bs_insert_vec( T el );
+	template <typename C>
+	void					_order_pairs( C& collection );
+	template <typename CPair, typename C>
+	void					_merge_pairs( CPair& cpairs, C& collection );
+	void					_bs_insert( std::vector<T>& vec, T el );
+	void					_bs_insert( std::deque<T>& vec, T el );
 
 	void					_add_vec_pair( size_t pos, size_t argc, char const *argv[] );
 	void					_add_deq_pair( size_t pos, size_t argc, char const *argv[] );
@@ -57,5 +60,7 @@ private:
 };
 
 # include "PMergeMe.tpp"
+# include "PMerge_vec.tpp"
+# include "PMerge_deq.tpp"
 
 #endif
