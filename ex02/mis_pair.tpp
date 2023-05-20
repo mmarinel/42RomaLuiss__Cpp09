@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:49:06 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/19 15:29:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/20 11:29:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define MIS_PAIR_TPP
 
 #include "mis_pair.hpp"
+
+template <typename T>
+bool	mis_pair<T>:: isUnpaired( void )
+{
+	return (this->unpaired);
+}
 
 template <typename T>
 void	mis_pair<T>:: sortPair( void )
@@ -64,11 +70,11 @@ bool    mis_pair<T>::operator==(const mis_pair<T>& other) const
 
 
 template <typename T>
-mis_pair<T>::mis_pair( T smaller, T bigger, bool last_not_used )
+mis_pair<T>::mis_pair( T smaller, T bigger, bool unpaired )
 {
     this->smaller = smaller;
     this->bigger = bigger;
-    this->last_not_used = last_not_used;
+    this->unpaired = unpaired;
 }
 
 template <typename T>
@@ -76,7 +82,7 @@ mis_pair<T>::mis_pair( void )
 {
     this->smaller = T();
     this->bigger = T();
-    this->last_not_used = false;
+    this->unpaired = false;
 }
 
 template <typename T>
@@ -90,7 +96,7 @@ mis_pair<T>& mis_pair<T>::operator=(const mis_pair<T>& copy)
 {
     this->smaller = copy.smaller;
     this->bigger = copy.bigger;
-    this->last_not_used = copy.last_not_used;
+    this->unpaired = copy.unpaired;
 
     return (*this);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 19:01:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/19 19:39:08 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/20 11:29:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ void	PMergeMe<T>::_merge_vec_pairs( void )
 	size_t	offset;
 	size_t	group_size;
 
+	this->ordered_vec.push_back(this->vec_pairs[0].getSmaller());
+	for (int i = 0; i < (int) this->vec_pairs.size(); i++)
+		if (false == this->vec_pairs[i].isUnpaired())
+			this->ordered_vec.push_back(this->vec_pairs[i].getBigger());
 	std::cout
 		<< "..........................................................."
 		<< std::endl;
@@ -100,8 +104,7 @@ void	PMergeMe<T>::_merge_vec_pairs( void )
 				: offset + group_size - 1;
 			j >= (int) offset;
 			j --)
-			std::cout << j << " ";
-		std::cout << std::endl;
+			_bs_insert_vec(this->vec_pairs[j].getSmaller());// std::cout << j << " "; std::cout << std::endl;
 		offset = offset + group_size;
 		group_size = pow(2, i + 1) - group_size;
 	}
@@ -112,27 +115,27 @@ void	PMergeMe<T>::_merge_vec_pairs( void )
 }
 
 template <typename T>
-void	PMergeMe<T>::_order_vec_pairs_rec( int start, int end )
+void	PMergeMe<T>:: _bs_insert_vec( T el )
 {
-	int	i;
-	int	j;
-	T	backup;
+	int	middle;
+	int	vec_start, vec_end;
 
-	for (i = start; i <= end; i++)
+	vec_start = 0;
+	vec_end = this->ordered_vec.size() - 1;
+	while (vec_start <= vec_end)
 	{
-		backup = vec_pairs[i];
-		j = i - 1;
-		for (; j >= start; j--)
-		{
-			if (vec_pairs[j] > backup)
-				vec_pairs[j + 1] = vec_pairs[j];
-			else
-				break ;
-		}
-		vec_pairs[j + 1] = backup;
-	}
-}
+		middle = std::floor((vec_end + vec_start) / 2.0f);
 
+		if (el > this->ordered_vec[middle])
+			vec_start = middle + 1;
+		else
+			vec_end = middle - 1;		
+	}
+	if (vec_end != middle)
+		this->ordered_vec.insert(this->ordered_vec.begin() + middle, el);//before pos;
+	else
+		this->ordered_vec.insert(this->ordered_vec.begin() + middle + 1, el);//after pos;
+}
 
 //************************************************************************** //
 
@@ -144,10 +147,14 @@ void    PMergeMe<T>::debug( void )
     size_t  j;
 
 	sortVec();
-    for (j = 0; j < this->vec_pairs.size(); j++)
-    {
-        std::cout << this->vec_pairs[j] << std::endl;
-    }
+	for (j = 0; j < this->ordered_vec.size(); j++)
+	{
+		std::cout << this->ordered_vec[j] << std::endl;
+	}
+    // for (j = 0; j < this->vec_pairs.size(); j++)
+    // {
+    //     std::cout << this->vec_pairs[j] << std::endl;
+    // }
 }
 
 template <typename T>

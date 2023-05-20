@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:49:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/19 19:19:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/20 11:10:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ private:
 	void	_order_vec_pairs( void );
 	// void	_group_vec_pairs( void );
 	void	_merge_vec_pairs( void );
-	void	_order_vec_pairs_rec( int start, int end );
+	void	_bs_insert_vec( T el );
 };
 
 # include "PMergeMe.tpp"
