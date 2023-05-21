@@ -6,7 +6,7 @@
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/16 17:34:54 by earendil          #+#    #+#              #
-#    Updated: 2023/05/21 15:38:03 by mmarinel         ###   ########.fr        #
+#    Updated: 2023/05/21 16:01:55 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ BOLDCYAN	:= $(shell /bin/echo -e "\033[1m\033[36m")
 BOLDWHITE	:= $(shell /bin/echo -e "\033[1m\033[37m")
 NL			:= $(shell /bin/echo -e "\n")
 
-CC:= g++
+CC:= @g++
 CFLAGS:= -std=c++98 -Wall -Werror -Wextra
 
 NAME := PmergeMe
