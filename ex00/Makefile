@@ -6,27 +6,31 @@
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/16 17:34:54 by earendil          #+#    #+#              #
-#    Updated: 2023/04/21 18:41:17 by mmarinel         ###   ########.fr        #
+#    Updated: 2023/05/21 18:35:04 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-RESET		:= "\033[0m"
-BLACK		:= "\033[30m"
-RED			:= "\033[31m"
-GREEN		:= "\033[32m"
-YELLOW		:= "\033[33m"
-BLUE		:= "\033[34m"
-MAGENTA		:= "\033[35m"
-CYAN		:= "\033[36m"
-WHITE		:= "\033[37m"
-BOLDBLACK	:= "\033[1m\033[30m"
-BOLDRED		:= "\033[1m\033[31m"
-BOLDGREEN	:= "\033[1m\033[32m"
-BOLDYELLOW	:= "\033[1m\033[33m"
-BOLDBLUE	:= "\033[1m\033[34m"
-BOLDMAGENTA	:= "\033[1m\033[35m"
-BOLDCYAN	:= "\033[1m\033[36m"
-BOLDWHITE	:= "\033[1m\033[37m"
+SHELL = /bin/bash
+
+RESET		:= $(shell /bin/echo -e "\033[0m")
+BLACK		:= $(shell /bin/echo -e "\033[30m")
+RED			:= $(shell /bin/echo -e "\033[31m")
+GREEN		:= $(shell /bin/echo -e "\033[32m")
+YELLOW		:= $(shell /bin/echo -e "\033[33m")
+BLUE		:= $(shell /bin/echo -e "\033[34m")
+MAGENTA		:= $(shell /bin/echo -e "\033[35m")
+CYAN		:= $(shell /bin/echo -e "\033[36m")
+BOLDCYAN	:= $(shell /bin/echo -e "\033[1;36m")
+WHITE		:= $(shell /bin/echo -e "\033[37m")
+BOLDBLACK	:= $(shell /bin/echo -e "\033[1m\033[30m")
+BOLDRED		:= $(shell /bin/echo -e "\033[1m\033[31m")
+BOLDGREEN	:= $(shell /bin/echo -e "\033[1m\033[32m")
+BOLDYELLOW	:= $(shell /bin/echo -e "\033[1m\033[33m")
+BOLDBLUE	:= $(shell /bin/echo -e "\033[1m\033[34m")
+BOLDMAGENTA	:= $(shell /bin/echo -e "\033[1m\033[35m")
+BOLDCYAN	:= $(shell /bin/echo -e "\033[1m\033[36m")
+BOLDWHITE	:= $(shell /bin/echo -e "\033[1m\033[37m")
+NL			:= $(shell /bin/echo -e "\n")
 
 CC:= @g++
 CFLAGS:= -std=c++98 -Wall -Werror -Wextra
@@ -43,8 +47,27 @@ MAKE_REC:= @make --no-print-directory
 exercise: .BUILD
 
 run: .RUN
-	@echo $(CYAN) "\nTests running\n" $(RESET)
-	@leaks --atExit -- ./$(NAME)
+	@printf "$(BOLDCYAN)\nTests running\n\n$(RESET) "; sleep 1; \
+	\
+	printf "$(CYAN)\nEmpty test\n\n$(RESET) "; sleep 1;
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) empty_input.txt;
+	@read -p "Press any key to continue..."; clear; \
+	\
+	printf "$(CYAN)\nSubject tests\n\n$(RESET) "; sleep 1;
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) input.txt;
+	@read -p "Press any key to continue..."; clear; \
+	\
+	printf "$(CYAN)\nCustom tests\n\n$(RESET) "; sleep 1;
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) input2.txt;
+	@read -p "Press any key to continue..."; clear; \
+	\
+	printf "$(CYAN)\nErrors tests\n\n$(RESET) "; sleep 1;
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) garbage_input.txt;
+	@read -p "Press any key to continue..."; clear; \
+	\
+	printf "$(CYAN)\nErrors tests\n\n$(RESET) "; sleep 1;
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)  errors_input.txt;
+	@read -p "Press any key to continue..."; clear; \
 
 all:
 	@$(MAKE_REC) -C ..

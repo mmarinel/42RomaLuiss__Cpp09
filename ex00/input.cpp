@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 16:14:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/21 18:27:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/21 18:39:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	parse_val_part(std::string& val_part)
 	return (
 		val_part.find_first_not_of("0123456789.") == std::string::npos &&
 		std::find_if(val_part.begin(), val_part.end(), ::isdigit) != val_part.end() &&
-		std::atof(val_part.c_str()) < 1000.0f
+		std::atof(val_part.c_str()) <= 1000.0f
 	);
 }
 
