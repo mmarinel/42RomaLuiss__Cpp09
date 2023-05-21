@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 16:14:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/04/23 17:48:11 by earendil         ###   ########.fr       */
+/*   Updated: 2023/05/21 18:27:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ bool	parse_date_part(std::string& date_part)
 		(day.as_int < 1 || day.as_int > 31)
 	)
 	{
-		// std::cout << "date part parse failed\n";
 		return (false);
 	}
 	else
@@ -71,7 +70,11 @@ bool	parse_line(const std::string line, std::string *buffer)
 
 void	read_input_and_print(const char* path)
 {
-	std::ifstream	input(path);
+	std::ifstream					input(path);
+	std::string						buffer[3];
+	unsigned long long				dateAsInt;
+	std::list<t_db_entry>::iterator	it;
+	std::list<t_db_entry>::iterator	back;
 
 	if (false == input.is_open())
 	{
@@ -80,8 +83,6 @@ void	read_input_and_print(const char* path)
 	}
 	else
 	{
-		std::string	buffer[3];
-
 		std::getline(input, buffer[0]);
 		buffer[0].erase(buffer[0].begin(), buffer[0].end());
 		while (input.good())
@@ -89,12 +90,8 @@ void	read_input_and_print(const char* path)
 			std::getline(input, buffer[0]);
 			if (parse_line(buffer[0], buffer))
 			{
-				unsigned long long	dateAsInt = date_as_integral(buffer[1]);
-				std::list<t_db_entry>::iterator	it;
-				std::list<t_db_entry>::iterator	back;
-
+				dateAsInt = date_as_integral(buffer[1]);
 				back = db.end();
-				//TODO 1. se sei l'ultimo, jumpi
 				for (it = db.begin(); it != db.end(); it++)
 				{
 					if ( (*it).intDate > dateAsInt )
@@ -109,7 +106,6 @@ void	read_input_and_print(const char* path)
 				}
 				if (it == db.end())
 					std::cout << buffer[1] << " ==> " << buffer[2] << " = " << (*back).exch_rate * std::atof(buffer[2].c_str()) << std::endl;
-				//TODO converti in int la data e cerca la lower one nel db
 			}
 			else
 				std::cout << "Error: " << RED << "wrong format for line" << RESET << std::endl;
