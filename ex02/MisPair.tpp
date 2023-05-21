@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mis_pair.tpp                                       :+:      :+:    :+:   */
+/*   MisPair.tpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:49:06 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/20 11:29:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/21 19:29:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MIS_PAIR_TPP
 # define MIS_PAIR_TPP
 
-#include "mis_pair.hpp"
+#include "MisPair.hpp"
 
 template <typename T>
-bool	mis_pair<T>:: isUnpaired( void )
+bool	MisPair<T>:: isUnpaired( void )
 {
 	return (this->unpaired);
 }
 
 template <typename T>
-void	mis_pair<T>:: sortPair( void )
+void	MisPair<T>:: sortPair( void )
 {
 	T	backup;
 
@@ -36,31 +36,31 @@ void	mis_pair<T>:: sortPair( void )
 
 
 template <typename T>
-bool    mis_pair<T>::operator<(const mis_pair<T>& other) const
+bool    MisPair<T>::operator<(const MisPair<T>& other) const
 {
     return (this->bigger < other.bigger);
 }
 
 template <typename T>
-bool    mis_pair<T>::operator<=(const mis_pair<T>& other) const
+bool    MisPair<T>::operator<=(const MisPair<T>& other) const
 {
     return (this->bigger <= other.bigger);
 }
 
 template <typename T>
-bool    mis_pair<T>::operator>(const mis_pair<T>& other) const
+bool    MisPair<T>::operator>(const MisPair<T>& other) const
 {
     return (this->bigger > other.bigger);
 }
 
 template <typename T>
-bool    mis_pair<T>::operator>=(const mis_pair<T>& other) const
+bool    MisPair<T>::operator>=(const MisPair<T>& other) const
 {
     return (this->bigger >= other.bigger);
 }
 
 template <typename T>
-bool    mis_pair<T>::operator==(const mis_pair<T>& other) const
+bool    MisPair<T>::operator==(const MisPair<T>& other) const
 {
     return (
         this->bigger == other.bigger &&
@@ -70,7 +70,7 @@ bool    mis_pair<T>::operator==(const mis_pair<T>& other) const
 
 
 template <typename T>
-mis_pair<T>::mis_pair( T smaller, T bigger, bool unpaired )
+MisPair<T>::MisPair( T smaller, T bigger, bool unpaired )
 {
     this->smaller = smaller;
     this->bigger = bigger;
@@ -78,7 +78,7 @@ mis_pair<T>::mis_pair( T smaller, T bigger, bool unpaired )
 }
 
 template <typename T>
-mis_pair<T>::mis_pair( void )
+MisPair<T>::MisPair( void )
 {
     this->smaller = T();
     this->bigger = T();
@@ -86,13 +86,13 @@ mis_pair<T>::mis_pair( void )
 }
 
 template <typename T>
-mis_pair<T>::mis_pair(const mis_pair<T>& copy)
+MisPair<T>::MisPair(const MisPair<T>& copy)
 {
     *this = copy;
 }
 
 template <typename T>
-mis_pair<T>& mis_pair<T>::operator=(const mis_pair<T>& copy)
+MisPair<T>& MisPair<T>::operator=(const MisPair<T>& copy)
 {
     this->smaller = copy.smaller;
     this->bigger = copy.bigger;
@@ -102,19 +102,19 @@ mis_pair<T>& mis_pair<T>::operator=(const mis_pair<T>& copy)
 }
 
 template  <typename T>
-mis_pair<T>::~mis_pair( void )
+MisPair<T>::~MisPair( void )
 {
     //* intentionally left blank
 }
 
 template  <typename T>
-const T&	mis_pair<T>::getSmaller( void ) const
+const T&	MisPair<T>::getSmaller( void ) const
 {
 	return (this->smaller);
 }
 
 template  <typename T>
-const T&	mis_pair<T>::getBigger( void ) const
+const T&	MisPair<T>::getBigger( void ) const
 {
 	return (this->bigger);
 }

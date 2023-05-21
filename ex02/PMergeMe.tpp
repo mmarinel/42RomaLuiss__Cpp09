@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 19:01:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/21 14:34:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/21 19:33:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	PMergeMe<T>::_order_pairs( C& collection )
 {
 	size_t			i;
 	int				j;
-	mis_pair<T>		backup;
+	MisPair<T>		backup;
 
 	for (i = 0; i < collection.size(); i++)
 		collection[i].sortPair();

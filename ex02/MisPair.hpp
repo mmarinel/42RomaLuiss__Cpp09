@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mis_pair.hpp                                       :+:      :+:    :+:   */
+/*   MisPair.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:39:57 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/20 11:28:49 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/21 19:29:28 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <cstdlib>
 
 template <typename T>
-class mis_pair
+class MisPair
 {
 private:
     T		        smaller;
@@ -27,30 +27,30 @@ public:
 	bool			isUnpaired( void );
 	void			sortPair( void );
 
-    bool            operator<(const mis_pair& other) const;
-    bool            operator<=(const mis_pair& other) const;
-    bool            operator>(const mis_pair& other) const;
-    bool            operator>=(const mis_pair& other) const;
-    bool            operator==(const mis_pair& other) const;
+    bool            operator<(const MisPair& other) const;
+    bool            operator<=(const MisPair& other) const;
+    bool            operator>(const MisPair& other) const;
+    bool            operator>=(const MisPair& other) const;
+    bool            operator==(const MisPair& other) const;
 
-                    mis_pair(T smaller, T bigger, bool last_not_used);
-                    mis_pair();
-                    mis_pair(const mis_pair& copy);
-    mis_pair&       operator=(const mis_pair& copy);
-                    ~mis_pair();
+                    MisPair(T smaller, T bigger, bool last_not_used);
+                    MisPair();
+                    MisPair(const MisPair& copy);
+    MisPair&       operator=(const MisPair& copy);
+                    ~MisPair();
     
     const T&        getSmaller( void ) const ;
     const T&        getBigger( void ) const;
 };
 
 template  <typename T>
-std::ostream&	operator<<( std::ostream& stream, const mis_pair<T>& pair )
+std::ostream&	operator<<( std::ostream& stream, const MisPair<T>& pair )
 {
     stream << "(" << pair.getSmaller() << ", " << pair.getBigger() << ")";
 
     return (stream);
 }
 
-# include "mis_pair.tpp"
+# include "MisPair.tpp"
 
 #endif

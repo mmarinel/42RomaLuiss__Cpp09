@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:49:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/21 13:04:18 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/21 19:33:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@
 # include <iostream>
 # include <math.h>
 
-# include "mis_pair.hpp"
+# include "MisPair.hpp"
 
 template <typename T>
 class PMergeMe
 {
 private:
-	std::vector< mis_pair<T> >	vec_pairs;
-	std::deque< mis_pair<T> >	deque_pairs;
+	std::vector< MisPair<T> >	vec_pairs;
+	std::deque< MisPair<T> >	deque_pairs;
 	std::vector<T>				ordered_vec;
 	std::deque<T>				ordered_deque;
 	char const**				unordered;

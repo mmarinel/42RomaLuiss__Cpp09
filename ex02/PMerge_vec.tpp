@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:25:25 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/20 15:28:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/21 19:34:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void	PMergeMe<T>:: _add_vec_pair( size_t pos, size_t argc, char const *argv[] )
 {
 	if (pos < argc - 1)
 	this->vec_pairs.push_back(
-		mis_pair<T>(
+		MisPair<T>(
 			std::atoi( argv[pos]), std::atoi(argv[pos + 1]), false )
 		);
 	else
 		this->vec_pairs.push_back(
-			mis_pair<T>( std::atoi(argv[pos]), 0, true )
+			MisPair<T>( std::atoi(argv[pos]), 0, true )
 		);
 }
 
