@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 19:01:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/20 15:33:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:34:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,13 @@ PMergeMe<T>::PMergeMe( size_t argc, char const *argv[] )
 {
 	size_t  i;
 
-	this->vec_pairs.reserve(argc / 2);
-	this->ordered_vec.reserve(argc);
+	if (argc > 1) {
+		this->vec_pairs.reserve(argc / 2);
+		this->ordered_vec.reserve(argc);
+		this->unordered = argv + 1;
+	}
+	else
+		this->unordered = NULL;
 	i = 1;
 	while (i < argc)
 	{
@@ -44,15 +49,21 @@ PMergeMe<T>::PMergeMe( size_t argc, char const *argv[] )
 template <typename T>
 void	PMergeMe<T>::sortVec ( void )
 {
-	_order_pairs(this->vec_pairs);
-	_merge_pairs(this->vec_pairs, this->ordered_vec);
+	if (this->unordered)
+	{
+		_order_pairs(this->vec_pairs);
+		_merge_pairs(this->vec_pairs, this->ordered_vec);
+	}
 }
 
 template <typename T>
 void	PMergeMe<T>::sortDeq ( void )
 {
-	_order_pairs(this->deque_pairs);
-	_merge_pairs(this->deque_pairs, this->ordered_deque);
+	if (this->unordered)
+	{
+		_order_pairs(this->deque_pairs);
+		_merge_pairs(this->deque_pairs, this->ordered_deque);
+	}
 }
 
 template <typename T>
@@ -115,6 +126,37 @@ void	PMergeMe<T>::_merge_pairs( CPair& cpairs, C& collection )
 
 //*		UTILITIES
 template <typename T>
+std::ostream&	operator<<(std::ostream& stream, const PMergeMe<T>& pm)
+{
+	pm.putRepr(stream);
+
+	return (stream);
+}
+
+template <typename T>
+void	PMergeMe<T>:: putRepr(std::ostream& stream) const
+{
+	size_t	i;
+
+	if (NULL == this->unordered)
+		return ;
+	
+	stream << "Before: ";
+	stream << this->unordered[0];
+	for (i = 1; NULL != this->unordered[i]; i++)
+		stream << " " << this->unordered[i];
+
+	if (0 == this->ordered_vec.size())
+		return ;
+	
+	stream << std::endl <<  "After: ";
+	stream << this->ordered_vec[0];
+	for (i = 1; i < this->ordered_vec.size(); i++)
+		stream << " " << this->ordered_vec[i];
+
+}
+
+template <typename T>
 void    PMergeMe<T>::debug( void )
 {
     size_t  j;
@@ -164,6 +206,7 @@ bool    PMergeMe<T>::isVaildNumberString( const char *numberString )
 template <typename T>
 PMergeMe<T>::PMergeMe( void )
 {
+	unordered = NULL;
 }
 
 template <typename T>

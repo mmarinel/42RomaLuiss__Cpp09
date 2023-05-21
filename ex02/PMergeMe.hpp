@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:49:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/05/20 15:31:10 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/21 13:04:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ private:
 	std::deque< mis_pair<T> >	deque_pairs;
 	std::vector<T>				ordered_vec;
 	std::deque<T>				ordered_deque;
+	char const**				unordered;
 public:
 	void					sortVec( void );
 	void					sortDeq( void );
@@ -40,6 +41,7 @@ public:
     PMergeMe<T>&    		operator=( const PMergeMe& copy );
             				~PMergeMe();
 
+	void					putRepr(std::ostream& stream) const;
 	void					debug ( void );
 
 	class					InvalidSequenceException : public std::exception {
@@ -58,6 +60,9 @@ private:
 	void					_add_deq_pair( size_t pos, size_t argc, char const *argv[] );
 	bool					isVaildNumberString( const char *numberString );
 };
+
+template <typename T>
+std::ostream&	operator<<(std::ostream& stream, const PMergeMe<T>& pm);
 
 # include "PMergeMe.tpp"
 # include "PMerge_vec.tpp"
