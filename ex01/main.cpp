@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 22:39:35 by mmarinel          #+#    #+#             */
-/*   Updated: 2023/04/07 15:08:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:20:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int main( int argc, const char* argv[])
 				if (operands < 2)
 				{
 					std::cout << BOLDRED << "Error: wrong number of arguments for operator" << RESET << std::endl;
-					exit(1);
+					break ;
 				}
 				operands -= 1;
 				operator_apply(stack, argv[1][i]);
@@ -75,16 +75,19 @@ int main( int argc, const char* argv[])
 			else if (false == std::isspace(argv[1][i]))
 			{
 				std::cout << BOLDRED << "Error: wrong symbol found" << RESET << std::endl;
-				exit(1);
+				break ;
 			}
 			i++;
 		}
-		if (stack.size() != 1)
+		if ('\0' == argv[1][i])
 		{
-			std::cout << BOLDRED << "Error: invalid inverted Polish mathematical expression" << RESET << std::endl;
-			exit(1);
+			if (stack.size() != 1)
+			{
+				std::cout << BOLDRED << "Error: invalid inverted Polish mathematical expression" << RESET << std::endl;
+			}
+			else
+				std::cout << BOLDGREEN << stack.top() << RESET << std::endl;
 		}
-		std::cout << BOLDGREEN << stack.top() << RESET << std::endl;
 	}
 	else
 		std::cout << BOLDRED << "Error: Wrong number of arguments" << RESET << std::endl;
